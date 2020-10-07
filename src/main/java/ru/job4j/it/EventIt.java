@@ -9,6 +9,8 @@ public class EventIt implements Iterator<Integer> {
     private int count2 = 0;
 
 
+
+
     public EventIt(final int[] numbers) {
         this.numbers = numbers;
     }
@@ -27,13 +29,12 @@ public class EventIt implements Iterator<Integer> {
 
     @Override
     public Integer next() {
-      for (int i = count2; i < numbers.length; i++) {
-          if (numbers[i] % 2 == 0) {
-              count2 = i + 1;
-              return numbers[i];
-          }
-      }
-      throw new NoSuchElementException();
+        count = count2;
+        if (!hasNext()) {
+            throw new NoSuchElementException();
+        }
+        count2 = count;
+        return numbers[count2 - 1];
     }
 
     @Override
