@@ -32,9 +32,4 @@ public class EventIt implements Iterator<Integer> {
         count2 = count;
         return numbers[count2 - 1];
     }
-
-    @Override
-    public void remove() {
-        throw new UnsupportedOperationException();
-    }
 }
