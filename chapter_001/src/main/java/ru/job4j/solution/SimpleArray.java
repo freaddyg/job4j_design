@@ -24,9 +24,7 @@ public class SimpleArray<T> implements Iterable<T> {
 
     public void remove(int index) {
         index = Objects.checkIndex(index, count);
-        for (int i = index; i < container.length; i++) {
-            container[index] = container[index + 1];
-        }
+        System.arraycopy(container, index + 1, container, index, container.length - index - 1);
         container[count - 1] = null;
         count--;
     }
@@ -46,7 +44,7 @@ public class SimpleArray<T> implements Iterable<T> {
 
         @Override
         public boolean hasNext() {
-            return countIt < container.length && container[countIt] != null;
+            return countIt < count;
         }
 
         @Override
