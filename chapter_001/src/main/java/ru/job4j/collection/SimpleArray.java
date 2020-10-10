@@ -5,16 +5,16 @@ import java.util.*;
 public class SimpleArray<T> implements Iterable<T> {
     private int size = 0;
     private int modCount = 0;
-    private Object[] store = new Object[0];
+    private Object[] store = new Object[10];
 
     public T get(int index) {
-        Objects.checkIndex(0, size);
+        Objects.checkIndex(0, size - index);
         return (T) store[index];
     }
 
     public void add(T model) {
         if (size == store.length) {
-            store = Arrays.copyOf(store, size + 1);
+            store = Arrays.copyOf(store, size * 2);
         }
         store[size++] = model;
         modCount++;
@@ -39,7 +39,7 @@ public class SimpleArray<T> implements Iterable<T> {
 
         @Override
         public boolean hasNext() {
-            return count < store.length;
+            return count < size;
         }
 
         @Override
