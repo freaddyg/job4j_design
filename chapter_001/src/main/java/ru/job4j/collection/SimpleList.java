@@ -29,7 +29,7 @@ public class SimpleList<T> implements Iterable<T> {
         Objects.checkIndex(0, size - index);
         Node<T> el = first;
         for (int i = 0; i < size; i++) {
-            if (el.getIndex() == index) {
+            if (el.i == index) {
                 return el.item;
             } else {
                 el = el.next;
@@ -77,10 +77,6 @@ public class SimpleList<T> implements Iterable<T> {
             this.next = next;
             this.prev = prev;
             this.i = i;
-        }
-
-        public int getIndex() {
-            return this.i;
         }
     }
 }
