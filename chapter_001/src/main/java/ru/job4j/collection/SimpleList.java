@@ -14,7 +14,7 @@ public class SimpleList<T> implements Iterable<T> {
 
     public void add(T value) {
         final Node<T> link = last;
-        final Node<T> newNode = new Node<>(value, link, null, size);
+        final Node<T> newNode = new Node<>(value, link, null);
         last = newNode;
         if (link == null) {
             first = newNode;
@@ -28,14 +28,10 @@ public class SimpleList<T> implements Iterable<T> {
     public T get(int index) {
         Objects.checkIndex(0, size - index);
         Node<T> el = first;
-        for (int i = 0; i < size; i++) {
-            if (el.i == index) {
-                return el.item;
-            } else {
-                el = el.next;
-            }
+        for (int i = 0; i != index; i++) {
+            el = el.next;
         }
-        return null;
+        return el.item;
     }
 
     @Override
@@ -70,13 +66,11 @@ public class SimpleList<T> implements Iterable<T> {
         private T item;
         private Node<T> prev;
         private Node<T> next;
-        private int i;
 
-        Node(T item, Node<T> prev, Node<T> next, int i) {
+        Node(T item, Node<T> prev, Node<T> next) {
             this.item = item;
             this.next = next;
             this.prev = prev;
-            this.i = i;
         }
     }
 }
