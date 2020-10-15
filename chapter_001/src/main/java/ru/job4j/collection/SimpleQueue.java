@@ -22,13 +22,4 @@ public class SimpleQueue<T> {
         in.push(value);
         sizeIn++;
     }
-
-    public static void main(String[] args) {
-        SimpleQueue<Integer> sp = new SimpleQueue<>();
-        sp.push(1);
-        sp.push(2);
-        System.out.println(sp.poll());
-        System.out.println(sp.poll());
-
-    }
 }
