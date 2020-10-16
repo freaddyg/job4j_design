@@ -10,11 +10,15 @@ public class SimpleStack<T> {
         return linked.deleteLast();
     }
 
-    public void push(T value) {
-        linked.add(value);
-    }
-
     public T popFirst() {
         return linked.deleteFirst();
+    }
+
+    public void pushFirst(T value) {
+        linked.addFirst(value);
+    }
+
+    public void push(T value) {
+        linked.add(value);
     }
 }

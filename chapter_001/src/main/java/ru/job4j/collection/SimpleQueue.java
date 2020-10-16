@@ -9,17 +9,17 @@ public class SimpleQueue<T> {
     public T poll() {
         if (sizeOut == 0) {
             while (sizeIn != 0) {
-                out.push(in.pop());
+                out.pushFirst(in.popFirst());
                 sizeIn--;
                 sizeOut++;
             }
         }
         sizeOut--;
-        return out.pop();
+        return out.popFirst();
     }
 
     public void push(T value) {
-        in.push(value);
+        in.pushFirst(value);
         sizeIn++;
     }
 }
