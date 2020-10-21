@@ -9,13 +9,35 @@ public class SimpleSet<T> implements Iterable<T> {
     private int size = 0;
 
     public void add(T element) {
-        for (T el : store) {
-            if (el.hashCode() == element.hashCode() && el.equals(el)) {
-                return;
-            }
+        if (!isValid(element)) {
+            return;
         }
         store.add(element);
         size++;
+    }
+
+    private boolean isValid(T element) {
+        if (checkNull() && element == null) {
+            return false;
+        }
+        for (T el : store) {
+            if (el == null) {
+                continue;
+            }
+            if (el.hashCode() == element.hashCode() && el.equals(element)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean checkNull() {
+        for (T el : store) {
+            if (el == null) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
