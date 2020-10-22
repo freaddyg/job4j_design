@@ -2,6 +2,7 @@ package ru.job4j.model;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 public class User {
@@ -42,12 +43,12 @@ public class User {
     public static void main(String[] args) {
 
         Map<User, Object> map = new HashMap<>();
-        map.put(new User("Yuriy", 1, new Calendar()), new Object());
-        map.put(new User("Evgeniy", 1, new Calendar()), new Object());
+        map.put(new User("Yuriy", 1, null), new Object());
+        map.put(new User("Yuriy", 1, null), new Object());
 
         Set<User> users = map.keySet();
         for (User u : users) {
-            System.out.println(u.getName() + " " + u.getChildren() + " " + u.getBirthday() + " " + map.get((User) u));
+            System.out.println(u.equals(u));
         }
     }
 }
