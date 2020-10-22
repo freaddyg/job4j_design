@@ -3,6 +3,7 @@ package ru.job4j.collection;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class SimpleSet<T> implements Iterable<T> {
     private SimpleArray<T> store = new SimpleArray<>();
@@ -17,14 +18,14 @@ public class SimpleSet<T> implements Iterable<T> {
     }
 
     private boolean isValid(T element) {
-        if (checkNull() && element == null) {
+        if (checkNull() && Objects.equals(element, null)) {
             return false;
         }
         for (T el : store) {
-            if (el == null) {
+            if (Objects.equals(el, null)) {
                 continue;
             }
-            if (el.hashCode() == element.hashCode() && el.equals(element)) {
+            if (el.hashCode() == element.hashCode() && Objects.equals(el, element)) {
                 return false;
             }
         }
@@ -33,7 +34,7 @@ public class SimpleSet<T> implements Iterable<T> {
 
     private boolean checkNull() {
         for (T el : store) {
-            if (el == null) {
+            if (Objects.equals(el, null)) {
                 return true;
             }
         }
@@ -42,22 +43,6 @@ public class SimpleSet<T> implements Iterable<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new Iterator<T>() {
-            private int count = 0;
-
-            @Override
-            public boolean hasNext() {
-                return count < size;
-            }
-
-            @Override
-            public T next() {
-                if (!hasNext()) {
-                    throw new NoSuchElementException();
-                }
-
-                return store.get(count++);
-            }
-        };
+        return store.iterator();
     }
 }
