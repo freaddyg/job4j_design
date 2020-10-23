@@ -40,15 +40,24 @@ public class User {
         this.birthday = birthday;
     }
 
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + children;
+        result = 31 * result + (birthday != null ? birthday.hashCode() : 0);
+        return result;
+    }
+
     public static void main(String[] args) {
 
         Map<User, Object> map = new HashMap<>();
         map.put(new User("Yuriy", 1, null), new Object());
         map.put(new User("Yuriy", 1, null), new Object());
 
+        System.out.println(map.size());
         Set<User> users = map.keySet();
         for (User u : users) {
-            System.out.println(u.equals(u));
+            System.out.println(u.getName() + " " + u.getChildren());
         }
     }
 }
