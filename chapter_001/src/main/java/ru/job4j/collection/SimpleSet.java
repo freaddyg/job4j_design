@@ -22,6 +22,7 @@ public class SimpleSet<T> implements Iterable<T> {
         for (T el : store) {
             if (Objects.equals(el, element)) {
                 res = true;
+                break;
             }
         }
         return res;
