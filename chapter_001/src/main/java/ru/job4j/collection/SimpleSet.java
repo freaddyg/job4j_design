@@ -10,35 +10,21 @@ public class SimpleSet<T> implements Iterable<T> {
     private int size = 0;
 
     public void add(T element) {
-        if (!isValid(element)) {
+        if (contains(element)) {
             return;
         }
         store.add(element);
         size++;
     }
 
-    private boolean isValid(T element) {
-        if (checkNull() && Objects.equals(element, null)) {
-            return false;
-        }
+    private boolean contains(T element) {
+        boolean res = false;
         for (T el : store) {
-            if (Objects.equals(el, null)) {
-                continue;
-            }
-            if (el.hashCode() == element.hashCode() && Objects.equals(el, element)) {
-                return false;
+            if (Objects.equals(el, element)) {
+                res = true;
             }
         }
-        return true;
-    }
-
-    private boolean checkNull() {
-        for (T el : store) {
-            if (Objects.equals(el, null)) {
-                return true;
-            }
-        }
-        return false;
+        return res;
     }
 
     @Override
