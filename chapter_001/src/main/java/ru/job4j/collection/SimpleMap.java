@@ -8,7 +8,9 @@ import java.util.*;
 public class SimpleMap<K, V> implements Iterable<V> {
     private static final int CAPACITY = 16;
     private static final float LOADFACTOR = 0.75f;
-    private Object[] store = new Object[CAPACITY];
+
+    private Node<K, V>[] store = new Node[CAPACITY];
+
     private int size = 0;
     private int modCount = 0;
 
@@ -17,11 +19,11 @@ public class SimpleMap<K, V> implements Iterable<V> {
         if (!Objects.equals(store[index], null)) {
             return false;
         }
-        store[index] = value;
+        store[index] = new Node<>(index, key, value);
         modCount++;
         size++;
         if (size == store.length * LOADFACTOR) {
-            Object[] newStore = resize();
+            Node<K, V>[] newStore = resize();
             store = Arrays.copyOf(newStore, newStore.length);
         }
         return true;
@@ -29,26 +31,30 @@ public class SimpleMap<K, V> implements Iterable<V> {
 
     public V get(K key) {
         int index = hash(key, store.length);
-        return store[index] != null ? (V) store[index] : null;
+        return store[index] != null && store[index].key.equals(key) ? store[index].value : null;
     }
 
     public boolean delete(K key) {
+        boolean res = false;
         int index = hash(key, store.length);
         if (Objects.equals(store[index], null)) {
-            return false;
+           return res;
         }
-        store[index] = null;
-        size--;
-        modCount++;
-        return true;
+        if (store[index].key.equals(key)) {
+            store[index] = null;
+            size--;
+            modCount++;
+            res = true;
+        }
+        return res;
     }
 
-    private Object[] resize() {
-        Object[] newStore = new Object[CAPACITY * 2];
+    private Node<K, V>[] resize() {
+        Node<K, V>[] newStore = new Node[CAPACITY * 2];
         int newIndex;
-        for (Object el : store) {
+        for (Node<K, V> el : store) {
             if (!Objects.equals(el, null)) {
-                newIndex = hash((K) el, newStore.length);
+                newIndex = hash(el.key, newStore.length);
                 newStore[newIndex] = el;
             }
         }
@@ -59,6 +65,18 @@ public class SimpleMap<K, V> implements Iterable<V> {
         int hk = key == null ? 0 : key.hashCode();
         hk = hk ^ (hk >>> 16);
         return hk & (length - 1);
+    }
+
+    private class Node<K, V> {
+        private int hash;
+        private K key;
+        private V value;
+
+        public Node(int hash, K key, V value) {
+            this.hash = hash;
+            this.key = key;
+            this.value = value;
+        }
     }
 
     @Override
