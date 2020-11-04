@@ -23,8 +23,7 @@ public class SimpleMap<K, V> implements Iterable<V> {
         modCount++;
         size++;
         if (size == store.length * LOADFACTOR) {
-            Node<K, V>[] newStore = resize();
-            store = Arrays.copyOf(newStore, newStore.length);
+            store = resize();
         }
         return true;
     }
