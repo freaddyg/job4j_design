@@ -16,16 +16,20 @@ public class SimpleMap<K, V> implements Iterable<V> {
 
     public boolean insert(K key, V value) {
         int index = hash(key, store.length);
-        if (!Objects.equals(store[index], null)) {
-            return false;
+        boolean res = false;
+        if (!Objects.equals(store[index], null) && Objects.equals(store[index].key, key)) {
+            store[index] = new Node<>(index, key, value);
+            res = true;
+        } else if (Objects.equals(store[index], null)) {
+            store[index] = new Node<>(index, key, value);
+            modCount++;
+            size++;
+            if (size == store.length * LOADFACTOR) {
+                store = resize();
+            }
+            res = true;
         }
-        store[index] = new Node<>(index, key, value);
-        modCount++;
-        size++;
-        if (size == store.length * LOADFACTOR) {
-            store = resize();
-        }
-        return true;
+        return res;
     }
 
     public V get(K key) {
