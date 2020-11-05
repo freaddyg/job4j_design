@@ -34,7 +34,7 @@ public class SimpleMap<K, V> implements Iterable<V> {
 
     public V get(K key) {
         int index = hash(key, store.length);
-        return store[index] != null && store[index].key.equals(key) ? store[index].value : null;
+        return store[index] != null && Objects.equals(store[index].key, key) ? store[index].value : null;
     }
 
     public boolean delete(K key) {
