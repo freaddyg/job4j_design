@@ -8,6 +8,9 @@ import java.util.List;
 
 public class Search {
     public static void main(String[] args) throws IOException {
+        if (args.length < 2) {
+            throw new IllegalArgumentException("Must be 2 parameters. Usage java -jar search.jar ROOT_FOLDER.");
+        }
         Path start = Paths.get(args[0]);
         String end = args[1];
         search(start, end).forEach(System.out::println);
