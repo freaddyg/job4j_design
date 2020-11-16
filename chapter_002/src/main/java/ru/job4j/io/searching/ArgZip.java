@@ -1,5 +1,6 @@
 package ru.job4j.io.searching;
 
+import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class ArgZip {
@@ -11,10 +12,10 @@ public class ArgZip {
 
     public boolean valid() {
         boolean result = true;
-        if (!Paths.get(directory()).isAbsolute()) {
+        if (!Files.isDirectory(Paths.get(directory()))) {
             result = false;
         }
-        if (!exclude().contains("java")) {
+        if (!exclude().matches("[a-z]+")) {
             result = false;
         }
         if (!output().contains("zip")) {
@@ -24,14 +25,14 @@ public class ArgZip {
     }
 
     public String directory() {
-        return args.length > 2 ? args[1] : "no correct";
+        return args.length > 2 ? args[1] : "NO CORRECT";
     }
 
     public String exclude() {
-        return args.length > 4 ? args[3] : "no correct";
+        return args.length > 4 ? args[3] : "NO CORRECT";
     }
 
     public String output() {
-        return args.length > 5 ? args[5] : "no correct";
+        return args.length > 5 ? args[5] : "NO CORRECT";
     }
 }

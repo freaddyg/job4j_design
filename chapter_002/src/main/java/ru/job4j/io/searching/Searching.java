@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Searching {
     public static List<Path> search(Path root, String ext) throws IOException {
-        SearchVisitor searcher = new SearchVisitor(p -> p.toFile().getName().endsWith(ext));
+        SearchVisitor searcher = new SearchVisitor(p -> !p.toFile().getName().endsWith(ext));
         Files.walkFileTree(root, searcher);
         return searcher.getPaths();
     }

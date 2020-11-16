@@ -23,7 +23,7 @@ public class SearchVisitor extends SimpleFileVisitor<Path> {
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-        if (!searcher.test(file)) {
+        if (searcher.test(file)) {
             paths.add(file.toAbsolutePath());
         }
         return FileVisitResult.CONTINUE;
