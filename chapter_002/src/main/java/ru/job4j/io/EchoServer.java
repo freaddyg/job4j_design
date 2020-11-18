@@ -1,18 +1,23 @@
 package ru.job4j.io;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class EchoServer {
-    public static void main(String[] args) throws IOException {
+    private static final Logger LOG = LoggerFactory.getLogger(UsageLog4j.class.getName());
 
+    public static void main(String[] args) {
         try (ServerSocket server = new ServerSocket(9000)) {
             while (true) {
                 String answer = "";
@@ -30,11 +35,15 @@ public class EchoServer {
                         System.out.println(str);
 
                     }
-                    answer = word[0];
-                    if (word[0].equals("Hello")) {
+                    if (Objects.equals(word[0], null)) {
+                        answer = "Hello World";
+                    } else {
+                        answer = word[0];
+                    }
+                    if ("Hello".equals(word[0])) {
                         answer = "Hello";
                     }
-                    if (word[0].equals("Bye")) {
+                    if ("Bye".equals(word[0])) {
                         break;
                     }
 
@@ -42,6 +51,8 @@ public class EchoServer {
                     out.write(answer.getBytes());
                 }
             }
+        } catch (IOException e) {
+            LOG.error("Chatching IOException", e);
         }
     }
 }
