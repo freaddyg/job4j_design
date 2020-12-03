@@ -2,6 +2,7 @@ package ru.job4j.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.json.JSONPropertyIgnore;
 
 import java.util.Arrays;
 
@@ -12,16 +13,15 @@ public class Car {
     private boolean ready;
     private String[] repairWork;
 
-    public Car(String model, Engine eng, int run, boolean ready, String... repairWork) {
+    public Car(String model, int run, boolean ready, String... repairWork) {
         this.model = model;
-        this.eng = eng;
         this.run = run;
         this.ready = ready;
         this.repairWork = repairWork;
     }
 
     public static void main(String[] args) {
-        Car car = new Car("Kia Optima", new Engine("180"), 110000, true, "Покраска", "Замена фильтров");
+        Car car = new Car("Kia Optima", 110000, true, "Покраска", "Замена фильтров");
         final Gson gson = new GsonBuilder().create();
         System.out.println(gson.toJson(car));
 
@@ -50,5 +50,29 @@ public class Car {
                 + ", ready=" + ready
                 + ", repairWork=" + Arrays.toString(repairWork)
                 + '}';
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public Engine getEng() {
+        return eng;
+    }
+
+    public int getRun() {
+        return run;
+    }
+
+    public boolean isReady() {
+        return ready;
+    }
+
+    public String[] getRepairWork() {
+        return repairWork;
+    }
+
+    public void setEng(Engine eng) {
+        this.eng = eng;
     }
 }
